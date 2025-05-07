@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feliz Aniversário!</title>
+  <link rel="icon" type="image/png" href="imagens/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+      min-height: 100vh;
+      overflow-x: hidden;
+      overflow-y: auto;
+      color: #3d1c2c;
+      background-attachment: fixed;
+      animation: fadeIn 2s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .container {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: auto;
+      padding: 50px 20px;
+      background-color: rgba(255, 255, 255, 0.95);
+      border-radius: 30px;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+      backdrop-filter: blur(6px);
+      margin-bottom: 60px;
+    }
+
+    .container > * {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: slideUp 0.6s ease-out forwards;
+      animation-delay: var(--delay, 0s);
+    }
+
+    @keyframes slideUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h1 {
+      font-size: 3.2em;
+      margin-bottom: 20px;
+      color: #c92a63;
+      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    p {
+      font-size: 1.3em;
+      line-height: 1.8;
+      margin: 10px 0;
+    }
+
+    .heart {
+      font-size: 2em;
+      color: #c92a63;
+      animation: pulse 1.5s infinite;
+      display: inline-block;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+      100% { transform: scale(1); }
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .photo-frame {
+      width: 180px;
+      height: 180px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .photo-frame:hover {
+      transform: scale(1.05);
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    button {
+      background-color: #c92a63;
+      color: white;
+      border: none;
+      padding: 15px 35px;
+      font-size: 1.1em;
+      font-weight: 500;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 35px;
+      box-shadow: 0 6px 20px rgba(201, 42, 99, 0.4);
+    }
+
+    button:hover {
+      background-color: #a1224f;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(201, 42, 99, 0.6);
+    }
+
+    .music-player {
+      margin-top: 25px;
+    }
+
+    .play-btn {
+      font-size: 2.2em;
+      background: none;
+      border: none;
+      color: #c92a63;
+      cursor: pointer;
+    }
+
+    .hearts, .tulips {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .heart-shape, .tulip-shape {
+      position: absolute;
+      background-color: #ff6b81;
+      width: 20px; height: 20px;
+      transform: rotate(45deg);
+      opacity: 0;
+    }
+
+    .heart-shape:before, .heart-shape:after,
+    .tulip-shape:before, .tulip-shape:after {
+      content: '';
+      width: 20px;
+      height: 20px;
+      background-color: #ff6b81;
+      border-radius: 50%;
+      position: absolute;
+    }
+
+    .heart-shape:before, .tulip-shape:before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart-shape:after, .tulip-shape:after {
+      top: 0;
+      left: -10px;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) rotate(45deg); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-100vh) rotate(45deg); opacity: 0; }
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #fff;
+      font-size: 1em;
+    }
+
+    @media (max-width: 600px) {
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+
+      .photo-frame {
+        width: 100%; 
+        height: auto;
+        max-width: 90%; 
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="hearts" id="hearts"></div>
+  <div class="tulips" id="tulips"></div>
+
+  <div class="container">
+    <h1 style="--delay: 0.2s">Feliz Aniversário!🌷 <span class="heart">❤</span></h1>
+    <p style="--delay: 0.4s">Hoje é dia de celebrar você, com muita original gelada!</p>
+    <p style="--delay: 0.6s">Feliz é quem tem o prazer de poder viver e compartilhar momentos especiais com você! 💖</p>
+
+    <div class="gallery" style="--delay: 0.8s">
+      <div class="photo-frame"><img src="fotos/foto.jpeg" alt="Foto do casal" /></div>
+      <div class="photo-frame"><img src="fotos/foto2.jpeg" alt="Outra foto" /></div>
+      <div class="photo-frame"><img src="fotos/foto3.jpeg" alt="Outra foto" /></div>
+      <div class="photo-frame"><img src="fotos/foto4.jpeg" alt="Outra foto" /></div>
+      <div class="photo-frame"><img src="fotos/foto5.jpeg" alt="Outra foto" /></div>
+      <div class="photo-frame"><img src="fotos/foto6.jpeg" alt="Outra foto" /></div>
+      <div class="photo-frame"><img src="fotos/foto7.jpeg" alt="Outra foto" /></div>
+      <div class="photo-frame"><img src="fotos/foto8.jpeg" alt="Outra foto" /></div>
+      <div class="photo-frame"><img src="fotos/foto9.jpeg" alt="Outra foto" /></div>
+      <div class="photo-frame"><img src="fotos/foto10.jpeg" alt="Outra foto" /></div>
+      <div class="photo-frame"><img src="fotos/foto11.jpeg" alt="Outra foto" /></div>
+      <div class="photo-frame"><img src="fotos/foto12.jpeg" alt="Outra foto" /></div>
+    </div>
+
+    <button onclick="showSurprise()" style="--delay: 1s">Clique para uma surpresa</button>
+    <div id="surpriseMsg" style="display:none; font-size: 1.4em; margin-top: 20px;"></div>
+
+    <div class="music-player">
+      <button class="play-btn" onclick="toggleMusic()">▶</button>
+    </div>
+  </div>
+
+  <audio id="bgMusic" loop>
+    <source id="musicSource" src="musicas/meEncontra.mp3" type="audio/mpeg">
+  </audio>
+
+  <footer>
+    <p>Com todo meu carinho, para você ❤️</p>
+  </footer>
+  <script>
+    const messages = [
+      "Parabéns pra dona do meu pensamento! ❤️",
+      "Feliz demais em ter você por perto. 💕",
+      "A minha história de amor começou, era carnaval, era Salvador! 🌹",
+      "Te amo man!"
+    ];
+
+    function showSurprise() {
+      const msg = messages[Math.floor(Math.random() * messages.length)];
+      const surpriseEl = document.getElementById('surpriseMsg');
+      surpriseEl.textContent = msg;
+      surpriseEl.style.display = 'block';
+      surpriseEl.style.opacity = 0;
+      setTimeout(() => {
+        surpriseEl.style.opacity = 1;
+      }, 10);
+
+      for (let i = 0; i < 5; i++) {
+        floatSingleHeart();
+      }
+    }
+
+    function createFloatingShapes(containerId, shapeClass, count, animationName, color) {
+      const container = document.getElementById(containerId);
+      for (let i = 0; i < count; i++) {
+        const el = document.createElement('div');
+        el.classList.add(shapeClass);
+        el.style.left = Math.random() * 100 + 'vw';
+        el.style.top = Math.random() * 100 + 'vh';
+        el.style.animation = `${animationName} ${5 + Math.random() * 5}s ease-in infinite`;
+        el.style.animationDelay = Math.random() * 5 + 's';
+        el.style.opacity = Math.random() * 0.5 + 0.3;
+        el.style.backgroundColor = color;
+        el.style.width = el.style.height = (Math.random() * 15 + 10) + 'px';
+        container.appendChild(el);
+      }
+    }
+
+    function floatSingleHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart-shape');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.top = '90vh';
+      heart.style.animation = `float ${3 + Math.random() * 2}s ease-in`;
+      heart.style.opacity = 1;
+      heart.style.width = heart.style.height = (Math.random() * 20 + 15) + 'px';
+      document.getElementById('hearts').appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 5000);
+    }
+
+    const music = document.getElementById('bgMusic');
+    let isPlaying = false;
+
+    function toggleMusic() {
+      const playBtn = document.querySelector('.play-btn');
+      if (isPlaying) {
+        music.pause();
+        playBtn.textContent = '▶';
+      } else {
+        music.play().then(() => {
+          playBtn.textContent = '⏸';
+        }).catch(err => {
+          alert("Não foi possível tocar a música automaticamente. Clique no botão play para tentar novamente.");
+          console.error(err);
+        });
+      }
+      isPlaying = !isPlaying;
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      createFloatingShapes('hearts', 'heart-shape', 40, 'float', '#ff6b81');
+      createFloatingShapes('tulips', 'tulip-shape', 25, 'float', '#e75480');
+      music.volume = 0.7;
+      setTimeout(() => {
+        music.play().catch(e => console.log("Reprodução automática bloqueada"));
+      }, 1000);
+    });
+  </script>
+</body>
+</html>
